@@ -23,8 +23,15 @@
       system:
       let pkgs = import nixpkgs { inherit overlays system; }; in
       {
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [ zigpkgs.master ];
+        devShells.default = pkgs.mkShellNoCC {
+          nativeBuildInputs = with pkgs; [
+            # Needed for Zig
+            zigpkgs.master
+          ] ++ (with llvmPackages_16; [
+            # Needed for Make
+            bintools-unwrapped
+            clang-unwrapped
+          ]);
         };
       }
     );

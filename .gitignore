@@ -1,2 +1,6 @@
+# Make
+*.o
+
+# Zig
 zig-cache/
 zig-out/
